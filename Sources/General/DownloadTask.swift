@@ -49,6 +49,7 @@ public class DownloadTask: Task<DownloadTask> {
         set { protectedDownloadState.write { _ in _sessionTask = newValue }}
     }
     
+    public var mediaImdbID : String?
 
     public private(set) var response: HTTPURLResponse? {
         get { protectedDownloadState.wrappedValue.response }
@@ -100,6 +101,7 @@ public class DownloadTask: Task<DownloadTask> {
                   headers: [String: String]? = nil,
                   fileName: String? = nil,
                   cache: Cache,
+                  mediaImdbID: String? = "",
                   operationQueue: DispatchQueue) {
         super.init(url,
                    headers: headers,
@@ -108,6 +110,7 @@ public class DownloadTask: Task<DownloadTask> {
         if let fileName = fileName, !fileName.isEmpty {
             self.fileName = fileName
         }
+        self.mediaImdbID = mediaImdbID
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(fixDelegateMethodError),
                                                name: UIApplication.didBecomeActiveNotification,

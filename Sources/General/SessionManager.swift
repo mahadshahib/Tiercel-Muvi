@@ -305,8 +305,10 @@ extension SessionManager {
                          headers: [String: String]? = nil,
                          fileName: String? = nil,
                          onMainQueue: Bool = true,
+                         mediaImdbID: String = "",
                          handler: Handler<DownloadTask>? = nil) -> DownloadTask? {
         do {
+            
             let validURL = try url.asURL()
             var task: DownloadTask!
             operationQueue.sync {
@@ -318,6 +320,7 @@ extension SessionManager {
                                         headers: headers,
                                         fileName: fileName,
                                         cache: cache,
+                                        mediaImdbID: mediaImdbID,
                                         operationQueue: operationQueue)
                     task.manager = self
                     task.session = session
